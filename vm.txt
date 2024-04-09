@@ -1,0 +1,46 @@
+
+registers:
+    a: 0,
+    b: 1,
+    c: 2,
+    d: 3,
+    e: 4,
+    f: 5,
+    temp: 6,
+    result: 7,
+
+commands:
+    print_int: 0x01, print int from stack
+    print_str: 0x02, get addr from stack and print from memory
+    input_int: 0x03, get int input and put in register d
+    input_str: 0x04, get addr from stack and write user input to addr
+
+    mov: 0xC0 <register: 1 byte> <number: 2 byte>, mov number to register
+    mov_reg: 0xC1 <register: 1 byte> <register: 1 byte>, mov reg to reg
+
+    push_reg: 0xC2 <register: 1 byte>, push reg
+    push_num: 0xC3 <number: 2 byte>, push number
+
+    inc: 0x30 <register: 1 byte>, inc reg
+    dec: 0x31 <register: 1 byte>, dec reg
+
+    add: 0x32 <register: 1 byte> <register: 1 byte>, add reg to reg
+    sub: 0x33 <register: 1 byte> <register: 1 byte>, sub reg to reg
+    mult: 0x34 <register: 1 byte> <register: 1 byte>, mult reg to reg
+    div: 0x35 <register: 1 byte> <register: 1 byte>, div reg to reg
+    xor: 0x36 <register: 1 byte> <register: 1 byte>, xor reg to reg
+
+    cmp: 0xD0 <register: 1 byte> <register: 1 byte>, cmp reg,reg -> result
+    strcmp: 0xD0 <stack> <stack>, cmp str,str -> result
+
+    jmp: 0xF0, jump to addr from stack
+    je: 0xF1, jump to addr from stack if result == 1
+    jne: 0xF2, jump to addr from stack if result != 1
+
+    read_memory: 0x1E, get addr from stack and put value from memory to d
+    wead_memory: 0x1F, get addr and value from stack and write to addr value
+
+    call: 0xFD, get addr from stack and jump to it
+    ret: 0xFE, return to previus address
+
+    exit: 0xFF, stop execution
