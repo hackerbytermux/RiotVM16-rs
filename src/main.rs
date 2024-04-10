@@ -1,15 +1,31 @@
 pub mod vm;
 
-use vm::{get_vm};
+use vm::get_vm;
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    /// Name of the person to greet
+    #[arg(short, long)]
+    filename: String,
+
+    #[arg(short, long)]
+    debug: bool,
+}
+
 // +2
 fn main() {
-    let program = [
-        0xC3, 0x02, 0x00,
-        0xF0,
-    ];
+    let args = Args::parse();
 
-    let mut cpu = get_vm(&program);
+    let program = std::fs::read(args.filename).expect("Unable to read file");
+    let mut  cpu = get_vm(&program);
     cpu.run();
-    println!("{:?}", cpu.registers);
 
+    if args.debug {
+        //write memory to file
+        std::fs::write("memory.bin", cpu.memory.memory).expect("Unable to write file");
+        println!("{:?}", cpu.registers);
+        println!("{:?}", cpu.stack);
+    }
 }   

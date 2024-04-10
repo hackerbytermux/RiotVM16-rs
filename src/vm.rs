@@ -185,12 +185,14 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
         //jmp
         cpu.opcode(0xF0, | cpu | {
             let addr: usize = cpu.stack.pop_front().unwrap().into();
+            cpu.registers[6] = cpu.ptr as u16;
             cpu.ptr = addr - 1;
         });
 
         //je
         cpu.opcode(0xF1, | cpu | {
             let addr: usize = cpu.stack.pop_front().unwrap().into();
+            cpu.registers[6] = cpu.ptr as u16;
             if cpu.registers[7] == 1 {
                 cpu.ptr = addr - 1;
             }
@@ -199,6 +201,7 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
         //jne
         cpu.opcode(0xF2, | cpu | {
             let addr: usize = cpu.stack.pop_front().unwrap().into();
+            cpu.registers[6] = cpu.ptr as u16;
             if cpu.registers[7] == 0 {
                 cpu.ptr = addr - 1;
             }

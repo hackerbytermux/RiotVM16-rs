@@ -1,4 +1,0 @@
-error: failed to receive a disconnect
-
-Caused by:
-  Удаленный хост принудительно разорвал существующее подключение. (os error 10054)
