@@ -15,7 +15,7 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
         //vm_print (stack: int)
         cpu.opcode(0x01, |cpu| {
             let value = cpu.stack.pop_front().unwrap();
-            println!("[librt-rs]: {}", value);
+            println!("{}", value);
         });
 
         //vm_prints (stack: addr)
@@ -34,7 +34,7 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
                 ptr += 1;
             }
             
-            println!("[librt-rs]: {}", buf);
+            println!("{}", buf);
         });
 
         //vm_input () -> register[3]
@@ -93,6 +93,14 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
             let value = Tools::read_bytes(cpu, cpu.ptr, 2);
             cpu.stack.push_back(Tools::bytes_to_u16(value[0], value[1]));
             cpu.ptr += 1
+        });
+
+
+        //pop
+        cpu.opcode(0x29, | cpu | {
+            cpu.ptr += 1;
+            let register = cpu.memory.read(cpu.ptr);
+            cpu.registers[register as usize] = cpu.stack.pop_back().unwrap();
         });
 
         //inc
@@ -217,13 +225,6 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
         cpu.opcode(0x1F, | cpu | {
             let addr: usize = cpu.stack.pop_front().unwrap().into();
             cpu.memory.write(addr, cpu.registers[7] as u8);
-        });
-
-        //call
-        cpu.opcode(0xFD, |cpu| {
-            let addr: usize = cpu.stack.pop_front().unwrap().into();
-            cpu.registers[6] = cpu.ptr as u16;
-            cpu.ptr = addr - 1;
         });
 
         //ret

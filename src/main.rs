@@ -12,6 +12,9 @@ struct Args {
 
     #[arg(short, long)]
     debug: bool,
+
+    #[arg(short, long)]
+    dump: bool,
 }
 
 // +2
@@ -24,8 +27,11 @@ fn main() {
 
     if args.debug {
         //write memory to file
-        std::fs::write("memory.bin", cpu.memory.memory).expect("Unable to write file");
         println!("{:?}", cpu.registers);
         println!("{:?}", cpu.stack);
+    }
+
+    if args.dump {
+        std::fs::write("memory.bin", cpu.memory.memory).expect("Unable to write file");
     }
 }   

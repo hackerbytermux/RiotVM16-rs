@@ -20,6 +20,7 @@ commands:
 
     push_reg: 0xC2 <register: 1 byte>, push reg
     push_num: 0xC3 <number: 2 byte>, push number
+    pop: 0x29 <register: 1 byte>, pop from stack to  register
 
     inc: 0x30 <register: 1 byte>, inc reg
     dec: 0x31 <register: 1 byte>, dec reg
@@ -40,7 +41,6 @@ commands:
     read_memory: 0x1E, get addr from stack and put value from memory to d
     wead_memory: 0x1F, get addr and value from stack and write to addr value
 
-    call: 0xFD, get addr from stack and jump to it
     ret: 0xFE, return to previus address
 
     exit: 0xFF, stop execution
