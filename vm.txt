@@ -12,7 +12,7 @@ registers:
 commands:
     print_int: 0x01, print int from stack
     print_str: 0x02, get addr from stack and print from memory
-    input_int: 0x03, get int input and put in register d
+    input_int: 0x03, get int input and put in register result
     input_str: 0x04, get addr from stack and write user input to addr
 
     mov: 0xC0 <register: 1 byte> <number: 2 byte>, mov number to register

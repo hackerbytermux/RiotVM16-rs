@@ -44,7 +44,7 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
                 .read_line(&mut input_line)
                 .expect("Failed to read line");
             let x: u16 = input_line.trim().parse().expect("Input not an integer");
-            cpu.registers[3] = x;
+            cpu.registers[7] = x;
         });
         
         //vm_inputs (stack: addr)
