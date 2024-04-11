@@ -38,7 +38,7 @@ commands:
     je: 0xF1, jump to addr from stack if result == 1
     jne: 0xF2, jump to addr from stack if result != 1
 
-    read_memory: 0x1E, get addr from stack and put value from memory to d
+    read_memory: 0x1E, get addr from stack and put value from memory to result
     wead_memory: 0x1F, get addr and value from stack and write to addr value
 
     ret: 0xFE, return to previus address

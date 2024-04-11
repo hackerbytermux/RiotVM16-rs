@@ -218,7 +218,7 @@ pub fn get_vm(bytecode: &[u8]) -> CPU {
         //read memory (addr: stack)
         cpu.opcode(0x1E, | cpu | {
             let addr: usize = cpu.stack.pop_front().unwrap().into();
-            cpu.registers[3] = cpu.memory.read(addr) as u16;
+            cpu.registers[7] = cpu.memory.read(addr) as u16;
         });
         
         //write memory(addr: stack)
